@@ -15,8 +15,6 @@ function SignIn() {
   } = useForm<ISigninForm>();
 
   async function handleSignIn(data: ISigninForm) {
-    console.log(data);
-
     await new Promise(resolve => setTimeout(resolve, 2000));
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));

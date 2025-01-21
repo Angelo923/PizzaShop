@@ -16,7 +16,7 @@ function SignUp() {
     formState: { isSubmitting },
   } = useForm<ISignUpForm>();
 
-  async function handleSignUp(data: ISignUpForm) {
+  async function handleSignUp(_data: ISignUpForm) {
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
 
