@@ -2,12 +2,45 @@ import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
+import { useForm } from 'react-hook-form';
+import { ISigninForm } from '@/pages/auth/schema.ts';
+import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 
 function SignIn() {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<ISigninForm>();
+
+  async function handleSignIn(data: ISigninForm) {
+    console.log(data);
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      toast.success('Email enviado com sucesso!', {
+        action: {
+          label: 'Reenviar',
+          onClick: async () => handleSignIn(data),
+        },
+      });
+    } catch {
+      toast.error('Erro ao enviar email.');
+    }
+  }
   return (
     <>
       <Helmet title="Login" />
       <div className="p-8">
+        <Button asChild variant="outline">
+          <Link to="/sign-up" className="absolute right-8 top-8">
+            Novo estabelecimento
+          </Link>
+        </Button>
+
         <div className="w-[350px] flex flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
@@ -18,13 +51,13 @@ function SignIn() {
             </p>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Seu e-mail</Label>
-              <Input id="email" type="email " />
+              <Input id="email" type="email " {...register('email')} />
             </div>
 
-            <Button className="w-full" type="submit">
+            <Button disabled={isSubmitting} className="w-full" type="submit">
               Acessar painel
             </Button>
           </form>
