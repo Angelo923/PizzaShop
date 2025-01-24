@@ -1,15 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Dashboard from '@/pages/app/dashboard.tsx';
+import Dashboard from '@/pages/app/dashboard/index.tsx';
 import SignIn from '@/pages/auth/sign-in.tsx';
-import AppLayout from '@/layouts/app.tsx';
-import AuthLayout from '@/layouts/auth.tsx';
-import SignUp from '@/pages/auth/sign-out.tsx';
+import AppLayout from '@/pages/layouts/app.tsx';
+import AuthLayout from '@/pages/layouts/auth.tsx';
+import SignUp from '@/pages/auth/sign-up.tsx';
 import Orders from '@/pages/app/orders';
+import NotFound from '@/pages/404.tsx';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
+    errorElement: <NotFound />,
     children: [
       {
         path: '/',
