@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ISignUpForm } from '@/pages/auth/schema.ts';
 import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { signUp } from '@/api/sign-up.ts';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -16,14 +18,23 @@ function SignUp() {
     formState: { isSubmitting },
   } = useForm<ISignUpForm>();
 
-  async function handleSignUp(_data: ISignUpForm) {
+  const { mutateAsync: restaurants } = useMutation({
+    mutationFn: signUp,
+  });
+
+  async function handleSignUp(data: ISignUpForm) {
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await restaurants({
+        restaurantName: data.restaurantName,
+        managerName: data.managerName,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+      });
 
       toast.success('Restaurante cadastrado com sucesso!', {
         action: {
           label: 'Login',
-          onClick: () => navigate('/sign-in'),
+          onClick: () => navigate(`/sign-in?email=${data.email}`),
         },
       });
     } catch {

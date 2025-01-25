@@ -5,17 +5,27 @@ import { Input } from '@/components/ui/input.tsx';
 import { useForm } from 'react-hook-form';
 import { ISigninForm } from '@/pages/auth/schema.ts';
 import { toast } from 'sonner';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { signIn } from '@/api/sign-in.ts';
 
 function SignIn() {
+  const [searchParams] = useSearchParams();
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<ISigninForm>();
+  } = useForm<ISigninForm>({
+    defaultValues: {
+      email: searchParams.get('email') ?? '',
+    },
+  });
+
+  const { mutateAsync: authenticateFn } = useMutation({ mutationFn: signIn });
 
   async function handleSignIn(data: ISigninForm) {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await authenticateFn({ email: data.email });
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
 
