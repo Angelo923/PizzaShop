@@ -9,7 +9,7 @@ export type ISigninForm = z.infer<typeof signInForm>;
 export const signUpForm = z.object({
   restaurantName: z.string(),
   managerName: z.string(),
-  phoneNumber: z.string(),
+  phone: z.string(),
   email: z.string().email(),
 });
 

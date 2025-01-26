@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { ISignUpForm } from '@/pages/auth/schema.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { signUp } from '@/api/sign-up.ts';
+import { registerRestaurant } from '@/api/register-restaurant.ts';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -18,17 +18,17 @@ function SignUp() {
     formState: { isSubmitting },
   } = useForm<ISignUpForm>();
 
-  const { mutateAsync: restaurants } = useMutation({
-    mutationFn: signUp,
+  const { mutateAsync: registerRestaurantFn } = useMutation({
+    mutationFn: registerRestaurant,
   });
 
   async function handleSignUp(data: ISignUpForm) {
     try {
-      await restaurants({
+      await registerRestaurantFn({
         restaurantName: data.restaurantName,
         managerName: data.managerName,
         email: data.email,
-        phoneNumber: data.phoneNumber,
+        phone: data.phone,
       });
 
       toast.success('Restaurante cadastrado com sucesso!', {
@@ -89,11 +89,11 @@ function SignUp() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Telefone</Label>
+              <Label htmlFor="phone">Telefone</Label>
               <Input
-                id="phoneNumber"
+                id="phone"
                 type="tel"
-                {...register('phoneNumber')}
+                {...register('phone')}
                 placeholder="Digite o numero"
               />
             </div>

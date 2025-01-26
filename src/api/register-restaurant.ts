@@ -1,16 +1,16 @@
 import { api } from '@/lib/axios.ts';
-import { ISignUp } from '@/api/interfaces.ts';
+import { IregisterRestaurant } from '@/api/interfaces.ts';
 
-export async function signUp({
+export async function registerRestaurant({
   restaurantName,
   managerName,
   email,
-  phoneNumber,
-}: ISignUp) {
+  phone,
+}: IregisterRestaurant) {
   await api.post('/restaurants', {
     restaurantName,
     managerName,
     email,
-    phoneNumber,
+    phone,
   });
 }

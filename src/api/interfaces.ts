@@ -2,9 +2,9 @@ export interface ISignIn {
   email: string;
 }
 
-export interface ISignUp {
+export interface IregisterRestaurant {
   restaurantName: string;
   managerName: string;
   email: string;
-  phoneNumber: string;
+  phone: string;
 }

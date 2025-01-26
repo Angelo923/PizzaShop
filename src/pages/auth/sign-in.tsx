@@ -22,17 +22,16 @@ function SignIn() {
     },
   });
 
-  const { mutateAsync: authenticateFn } = useMutation({ mutationFn: signIn });
+  const { mutateAsync: authenticate } = useMutation({ mutationFn: signIn });
 
   async function handleSignIn(data: ISigninForm) {
-    await authenticateFn({ email: data.email });
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await authenticate({ email: data.email });
 
-      toast.success('Email enviado com sucesso!', {
+      toast.success('Enviamos um link de autenticação para seu e-mail!', {
         action: {
           label: 'Reenviar',
-          onClick: async () => handleSignIn(data),
+          onClick: () => handleSignIn(data),
         },
       });
     } catch {
