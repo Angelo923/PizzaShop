@@ -43,22 +43,38 @@ function StoreProfileDialog() {
     },
   });
 
+  function updateManagedRestauntCache({
+    name,
+    description,
+  }: StoreProfileSchema) {
+    const cached = queryClient.getQueryData<IGetManagedRestaurantResponse>([
+      'managed-restaurant',
+    ]);
+
+    if (cached) {
+      queryClient.setQueryData<IGetManagedRestaurantResponse>(
+        ['managed-restaurant'],
+        {
+          ...cached,
+          name,
+          description,
+        },
+      );
+    }
+
+    return { cached };
+  }
+
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
-    onSuccess(_, { name, description }) {
-      const cached = queryClient.getQueryData<IGetManagedRestaurantResponse>([
-        'managed-restaurant',
-      ]);
+    onMutate({ name, description }) {
+      const { cached } = updateManagedRestauntCache({ name, description });
 
-      if (cached) {
-        queryClient.setQueryData<IGetManagedRestaurantResponse>(
-          ['managed-restaurant'],
-          {
-            ...cached,
-            name,
-            description,
-          },
-        );
+      return { previousProfile: cached };
+    },
+    onError(_, __, context) {
+      if (context?.previousProfile) {
+        updateManagedRestauntCache(context.previousProfile);
       }
     },
   });
@@ -81,7 +97,7 @@ function StoreProfileDialog() {
       <DialogHeader>
         <DialogTitle>Perfil da loja</DialogTitle>
         <DialogDescription>
-          Atualize as informações do seu estabelecimento visiveis ao seu cliente
+          Atualize as informações do seu estabelecimento visíveis ao seu cliente
         </DialogDescription>
       </DialogHeader>
 
