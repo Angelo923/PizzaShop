@@ -16,7 +16,6 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx';
 import StoreProfileDialog from '@/components/store-profile-dialog';
 import { signOut } from '@/api/sign-out.ts';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 function AccountMenu() {
   const navigate = useNavigate();
