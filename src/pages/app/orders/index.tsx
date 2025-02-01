@@ -6,16 +6,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table.tsx';
-import OrderTableFilter from '@/pages/app/orders/order-table-filter.tsx';
+import OrderTableFilter from '@/pages/app/orders/table-filter';
 import Pagination from '@/components/pagination';
 import { useQuery } from '@tanstack/react-query';
 import getOrders from '@/api/get-orders/get-orders.ts';
-import Index from '@/pages/app/orders/table-row';
+import OrderTableRow from '@/pages/app/orders/table-row';
 import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
 
 function Orders() {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const orderId = searchParams.get('orderId');
+  const customerName = searchParams.get('customerName');
+  const status = searchParams.get('status');
 
   const pageIndex = z.coerce
     .number()
@@ -23,8 +27,14 @@ function Orders() {
     .parse(searchParams.get('page') ?? '1');
 
   const { data: result } = useQuery({
-    queryKey: ['orders', pageIndex],
-    queryFn: () => getOrders({ pageIndex }),
+    queryKey: ['orders', pageIndex, orderId, customerName, status],
+    queryFn: () =>
+      getOrders({
+        pageIndex,
+        orderId,
+        customerName,
+        status: status === 'all' ? null : status,
+      }),
   });
 
   function handlePaginate(pageIndex: number) {
@@ -59,7 +69,7 @@ function Orders() {
               <TableBody>
                 {result &&
                   result.orders.map(order => {
-                    return <Index key={order.orderId} order={order} />;
+                    return <OrderTableRow key={order.orderId} order={order} />;
                   })}
               </TableBody>
             </Table>

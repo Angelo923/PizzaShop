@@ -4,10 +4,18 @@ import {
   IGetOrdersResponse,
 } from '@/api/get-orders/interfaces.ts';
 
-async function getOrders({ pageIndex }: IGetOrdersQuery) {
+async function getOrders({
+  pageIndex,
+  orderId,
+  customerName,
+  status,
+}: IGetOrdersQuery) {
   const response = await api.get<IGetOrdersResponse>('/orders', {
     params: {
       pageIndex,
+      orderId,
+      customerName,
+      status,
     },
   });
 

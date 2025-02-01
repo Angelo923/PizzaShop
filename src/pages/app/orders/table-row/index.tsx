@@ -1,26 +1,17 @@
 import { TableCell, TableRow } from '@/components/ui/table.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import { ArrowRight, Search, X } from 'lucide-react';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx';
-import OrderDetails from '@/pages/app/orders/order-details.tsx';
+import { ArrowRight, X } from 'lucide-react';
 import { IOrderTableRow } from '@/pages/app/orders/table-row/interfaces.ts';
 import OrderStatus from '@/components/order-status';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import ModalTableRow from '@/pages/app/orders/table-row/modalTableRow.tsx';
 
-function Index({ order }: IOrderTableRow) {
+function OrderTableRow({ order }: IOrderTableRow) {
   return (
     <TableRow>
       <TableCell>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="xs">
-              <Search className="h-3 w-3" />
-              <span className="sr-only">Detalhes do Pedido</span>
-            </Button>
-          </DialogTrigger>
-          <OrderDetails />
-        </Dialog>
+        <ModalTableRow />
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
         {order.orderId}
@@ -57,4 +48,4 @@ function Index({ order }: IOrderTableRow) {
   );
 }
 
-export default Index;
+export default OrderTableRow;

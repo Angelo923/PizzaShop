@@ -15,4 +15,7 @@ export interface IGetOrdersResponse {
 
 export interface IGetOrdersQuery {
   pageIndex?: number | null;
+  orderId?: string | null;
+  customerName?: string | null;
+  status?: string | null;
 }
