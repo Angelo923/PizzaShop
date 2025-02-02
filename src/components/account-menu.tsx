@@ -9,25 +9,25 @@ import {
 import { Button } from '@/components/ui/button.tsx';
 import { Building, ChevronDown, LogOut } from 'lucide-react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import getProfile from '@/api/profile/get-profile.ts';
-import getManagedRestaurant from '@/api/managed-restaurant/get-managed-restaurant.ts';
+import getManagedRestaurant from '@/api/get-managed-restaurant';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx';
 import StoreProfileDialog from '@/components/store-profile-dialog';
-import { signOut } from '@/api/sign-out.ts';
+import { signOut } from '@/api/sign-out';
 import { useNavigate } from 'react-router-dom';
+import getProfile from '@/api/get-profile';
 
 function AccountMenu() {
   const navigate = useNavigate();
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['get-profile'],
     queryFn: getProfile,
     staleTime: Infinity,
   });
 
   const { data: managedRestaurant, isLoading: isloandingManagedRestaurant } =
     useQuery({
-      queryKey: ['managed-restaurant'],
+      queryKey: ['get-managed-restaurant'],
       queryFn: getManagedRestaurant,
       staleTime: Infinity,
     });

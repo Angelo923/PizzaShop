@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { ISignUpForm } from '@/pages/auth/schema.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { registerRestaurant } from '@/api/register-restaurant.ts';
+import { registerRestaurant } from '@/api/register-restaurant';
 
 function SignUp() {
   const navigate = useNavigate();

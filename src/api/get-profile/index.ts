@@ -1,5 +1,5 @@
 import { api } from '@/lib/axios.ts';
-import { IGetProfileResponse } from '@/api/profile/interfaces.ts';
+import { IGetProfileResponse } from '@/api/get-profile/interfaces.ts';
 
 async function getProfile() {
   const response = await api.get<IGetProfileResponse>('/me');

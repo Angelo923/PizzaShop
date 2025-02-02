@@ -1,9 +1,10 @@
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Search } from 'lucide-react';
-import OrderDetails from '@/pages/app/orders/order-details.tsx';
+import OrderDetails from '@/pages/app/orders/details';
+import { IOrderTableRow } from '@/pages/app/orders/table-row/interfaces.ts';
 
-function ModalTableRow() {
+function ModalTableRow({ order }: IOrderTableRow) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -12,7 +13,7 @@ function ModalTableRow() {
           <span className="sr-only">Detalhes do Pedido</span>
         </Button>
       </DialogTrigger>
-      <OrderDetails />
+      <OrderDetails orderId={order.orderId} />
     </Dialog>
   );
 }

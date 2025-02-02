@@ -9,7 +9,7 @@ import {
 import OrderTableFilter from '@/pages/app/orders/table-filter';
 import Pagination from '@/components/pagination';
 import { useQuery } from '@tanstack/react-query';
-import getOrders from '@/api/get-orders/get-orders.ts';
+import getOrders from '@/api/get-orders';
 import OrderTableRow from '@/pages/app/orders/table-row';
 import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';

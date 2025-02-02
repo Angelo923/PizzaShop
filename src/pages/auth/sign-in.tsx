@@ -7,7 +7,7 @@ import { ISigninForm } from '@/pages/auth/schema.ts';
 import { toast } from 'sonner';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { signIn } from '@/api/sign-in.ts';
+import { signIn } from '@/api/sign-in';
 
 function SignIn() {
   const [searchParams] = useSearchParams();

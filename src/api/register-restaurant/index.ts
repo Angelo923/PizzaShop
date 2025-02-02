@@ -1,5 +1,5 @@
 import { api } from '@/lib/axios.ts';
-import { IregisterRestaurant } from '@/api/interfaces.ts';
+import { IregisterRestaurant } from '@/api/register-restaurant/interfaces.ts';
 
 export async function registerRestaurant({
   restaurantName,

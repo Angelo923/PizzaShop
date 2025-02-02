@@ -11,22 +11,22 @@ import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { Textarea } from '@/components/ui/textarea.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import getManagedRestaurant from '@/api/managed-restaurant/get-managed-restaurant.ts';
+import getManagedRestaurant from '@/api/get-managed-restaurant';
 import { useForm } from 'react-hook-form';
 import {
   storeProfileSchema,
   StoreProfileSchema,
 } from '@/components/store-profile-dialog/schema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
-import updateProfile from '@/api/update-profile/update-profile.ts';
+import updateProfile from '@/api/update-profile';
 import { toast } from 'sonner';
-import { IGetManagedRestaurantResponse } from '@/api/managed-restaurant/interface.ts';
+import { IGetManagedRestaurantResponse } from '@/api/get-managed-restaurant/interface.ts';
 
 function StoreProfileDialog() {
   const queryClient = useQueryClient();
 
   const { data: managedRestaurant } = useQuery({
-    queryKey: ['managed-restaurant'],
+    queryKey: ['get-managed-restaurant'],
     queryFn: getManagedRestaurant,
     staleTime: Infinity,
   });
@@ -48,12 +48,12 @@ function StoreProfileDialog() {
     description,
   }: StoreProfileSchema) {
     const cached = queryClient.getQueryData<IGetManagedRestaurantResponse>([
-      'managed-restaurant',
+      'get-managed-restaurant',
     ]);
 
     if (cached) {
       queryClient.setQueryData<IGetManagedRestaurantResponse>(
-        ['managed-restaurant'],
+        ['get-managed-restaurant'],
         {
           ...cached,
           name,

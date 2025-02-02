@@ -1,5 +1,5 @@
-import OrderStatus from '@/components/order-status/index.tsx';
+import { IOrderStatus } from '@/types/IOrderStatus.ts';
 
-export interface IOrderStatus {
-  status: OrderStatus;
+export interface IOrderStatusProps {
+  status: IOrderStatus;
 }
