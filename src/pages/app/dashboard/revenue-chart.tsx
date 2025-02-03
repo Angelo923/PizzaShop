@@ -22,9 +22,10 @@ import { useMemo, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { subDays } from 'date-fns';
 import { Loader2 } from 'lucide-react';
+import { DatePickerWithRange } from '@/components/ui/date-range-picker.tsx';
 
 function RevenueChart() {
-  const [dateRange, _setDateRange] = useState<DateRange | undefined>({
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
     to: new Date(),
   });
@@ -57,6 +58,7 @@ function RevenueChart() {
         </div>
         <div className="flex items-center gap-3">
           <Label>Período</Label>
+          <DatePickerWithRange date={dateRange} onDateChange={setDateRange} />
         </div>
       </CardHeader>
       <CardContent className="space-y-1">

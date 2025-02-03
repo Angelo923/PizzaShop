@@ -19,6 +19,7 @@ import getOrderDetails from '@/api/get-order-details';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import OrderStatus from '@/components/order-status';
+import OrderDetailsSkeleton from '@/pages/app/orders/order-details-skeleton.tsx';
 
 function OrderDetails({ orderId, open }: IOrderDetails) {
   const { data: order } = useQuery({
@@ -34,19 +35,21 @@ function OrderDetails({ orderId, open }: IOrderDetails) {
         <DialogDescription>Detalhes do pedido</DialogDescription>
       </DialogHeader>
 
-      {order && (
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
               <TableRow>
-                <TableCell className="text-muted-foreground">Status</TableCell>
+                <TableCell className="text-muted-foreground">Status:</TableCell>
                 <TableCell className="flex justify-end">
                   <OrderStatus status={order.status} />
                 </TableCell>
               </TableRow>
 
               <TableRow>
-                <TableCell className="text-muted-foreground">Cliente</TableCell>
+                <TableCell className="text-muted-foreground">
+                  Cliente:
+                </TableCell>
                 <TableCell className="flex justify-end">
                   {order.customer.name}
                 </TableCell>
@@ -54,7 +57,7 @@ function OrderDetails({ orderId, open }: IOrderDetails) {
 
               <TableRow>
                 <TableCell className="text-muted-foreground">
-                  Telefone
+                  Telefone:
                 </TableCell>
                 <TableCell className="flex justify-end">
                   {order.customer.phone ?? 'Não informado'}
@@ -62,7 +65,7 @@ function OrderDetails({ orderId, open }: IOrderDetails) {
               </TableRow>
 
               <TableRow>
-                <TableCell className="text-muted-foreground">E-mail</TableCell>
+                <TableCell className="text-muted-foreground">E-mail:</TableCell>
                 <TableCell className="flex justify-end">
                   {order.customer.email}
                 </TableCell>
@@ -70,7 +73,7 @@ function OrderDetails({ orderId, open }: IOrderDetails) {
 
               <TableRow>
                 <TableCell className="text-muted-foreground">
-                  Pedido realizado
+                  Pedido realizado:
                 </TableCell>
                 <TableCell className="flex justify-end">
                   {formatDistanceToNow(order.createdAt, {
@@ -133,6 +136,8 @@ function OrderDetails({ orderId, open }: IOrderDetails) {
             </TableFooter>
           </Table>
         </div>
+      ) : (
+        <OrderDetailsSkeleton />
       )}
     </DialogContent>
   );

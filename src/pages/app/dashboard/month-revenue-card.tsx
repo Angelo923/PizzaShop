@@ -7,8 +7,11 @@ import {
 import { DollarSign } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import getMonthRevenue from '@/api/get-month-revenue';
+import MetricCardSkeleton from '@/pages/app/dashboard/metric-card-skeleton.tsx';
 
 function MonthRevenueCard() {
+  //throw new Error('Method not implemented.');
+
   const { data: monthRevenue } = useQuery({
     queryFn: getMonthRevenue,
     queryKey: ['metrics', 'month-receipt'],
@@ -22,7 +25,7 @@ function MonthRevenueCard() {
         <DollarSign className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {monthRevenue && (
+        {monthRevenue ? (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {(monthRevenue.receipt / 100).toLocaleString('pt-BR', {
@@ -48,6 +51,8 @@ function MonthRevenueCard() {
               )}
             </p>
           </>
+        ) : (
+          <MetricCardSkeleton />
         )}
       </CardContent>
     </Card>

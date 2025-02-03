@@ -7,6 +7,7 @@ import {
 import { ThumbsDown } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import getMonthCanceledOrdersAmount from '@/api/get-month-canceled-orders-amount';
+import MetricCardSkeleton from '@/pages/app/dashboard/metric-card-skeleton.tsx';
 
 function MonthCanceledOrdersAmountCard() {
   const { data: monthCanceledOrders } = useQuery({
@@ -22,7 +23,7 @@ function MonthCanceledOrdersAmountCard() {
         <ThumbsDown className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {monthCanceledOrders && (
+        {monthCanceledOrders ? (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {monthCanceledOrders.amount.toLocaleString('pt-BR')}
@@ -45,6 +46,8 @@ function MonthCanceledOrdersAmountCard() {
               )}
             </p>
           </>
+        ) : (
+          <MetricCardSkeleton />
         )}
       </CardContent>
     </Card>
