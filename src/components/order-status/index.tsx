@@ -3,7 +3,7 @@ import { IOrderStatus } from '@/types/IOrderStatus.ts';
 import { IOrderStatusInfo } from '@/types/IOrderStatusInfo.ts';
 
 export const orderStatusMap: Record<IOrderStatus, IOrderStatusInfo> = {
-  pending: { value: 'Pendente', color: 'bg-slate-500' },
+  pending: { value: 'Pendente', color: 'bg-slate-400' },
   canceled: { value: 'Cancelado', color: 'bg-rose-500' },
   processing: { value: 'Em preparo', color: 'bg-amber-500' },
   delivering: { value: 'Em rota', color: 'bg-sky-500' },
@@ -16,6 +16,7 @@ export function OrderStatus({ status }: { status: IOrderStatus | undefined }) {
       {status && (
         <div className="flex items-center gap-2 whitespace-nowrap">
           <span
+            data-testid="badge"
             className={cn('h-2 w-2 rounded-full', orderStatusMap[status].color)}
           />
           <span className="font-medium text-muted-foreground">
